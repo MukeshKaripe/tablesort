@@ -8,9 +8,9 @@ import ReverseText from './components/ReverseText';
 function App() {
  return(
   <>
-  {/* <TableCom/> */}
+  <TableCom/>
   {/* <CurdOperations/> */}
-  <ReverseText/>
+  {/* <ReverseText/> */}
   </>
  );
 }

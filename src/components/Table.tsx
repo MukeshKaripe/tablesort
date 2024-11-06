@@ -13,6 +13,7 @@ const  TableCom = () => {
     key:"",
     direction:'ascending'
   });
+  const fruits = ["banana", "Apple", "cherry", "apple"];
   type sortType = keyof TableData;
   const BASE_URL = process.env.REACT_APP_BASE_URL;
 const fetchData = async () => {
@@ -26,27 +27,27 @@ catch(error){
 alert(error)
 }
 }
-const handleSort = (key: sortType) => {
-  
-  let direction = "ascending";
-  if (sortConfig.key === key && sortConfig.direction === "ascending"){
-    direction = "descending";
-  }
-  else if(sortConfig.key === key && sortConfig.direction === "descending"){
-    direction = "ascending";
-  }
-  setSortConfig({key,direction});
-  const sortHandle = [...tableData].sort((a,b) => {
-    if(a[key] < b[key]){
-      return direction === "ascending" ? 1 : -1;
-    }
-    else if(a[key] > b[key]){
-      return direction === "ascending" ? -1 : 1; 
-    }
-    return 0;
-  })
-  setTableData(sortHandle);
+const handleSort = (key:sortType) => {
+let direction = "ascending";
+if(sortConfig.key === key && sortConfig.direction === "ascending"){
+  direction = "decending"
 }
+else if(sortConfig.key === key && sortConfig.direction === "decending"){
+  direction = "ascending"
+}
+setSortConfig({key,direction});
+const sortData = [...tableData].sort((a,b) => {
+  if(a[key] < b[key]){
+    return direction === "ascending" ? -1 : 1 ;
+  }
+  else  if(a[key] > b[key]){
+    return direction === "ascending" ? 1 : -1 ;
+  }
+  return 0;
+})
+setTableData(sortData);
+}
+const localeCompared = fruits.sort((a,b) => a.localeCompare(b))
   useEffect(() => {
     fetchData();
   }, [])
@@ -78,6 +79,7 @@ const handleSort = (key: sortType) => {
           
         </tbody>
       </table>
+      {localeCompared.findIndex((val) =>  val === "apple")}
     </>
   );
 }
