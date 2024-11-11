@@ -13,7 +13,9 @@ interface key {
 }
 
 const api = axios.create({
-    baseURL : `${process.env.REACT_APP_BASE_CURD}`
+    // baseURL : `${process.env.REACT_APP_BASE_CURD}`
+    baseURL : `${process.env.REACT_APP_BASE_PRODUCT}`
+
 })
 export const getData = () => {
    return api.get("/posts")
@@ -26,4 +28,8 @@ export const deleteData = (id:number) => {
 }
 export const updateDataApi = (id:number,payLoad:any) => {
     return api.put(`/posts/${id}`,payLoad)
+}
+//product api
+export const getProduct = () => {
+    return api.get(`/products`);
 }
