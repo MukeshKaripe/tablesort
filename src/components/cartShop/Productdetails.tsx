@@ -1,8 +1,9 @@
 import { useEffect, useState } from "react";
 import { getProduct } from "../../Api/Api";
 import { Button, Grid } from "@mui/material";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { addToCart } from "../../slices/ProductSlice";
+import { RootState } from "../../redux/store";
 
 interface typeData {
     category: string,
@@ -21,16 +22,22 @@ const ProductDetails = () => {
 const dispatch = useDispatch();
     const [productData, setProductData] = useState<typeData[]>([]);
     async function fetchProductsData() {
-        const res = await getProduct();
+        try {
+            const res = await getProduct();
         const data = res.data;
-        setProductData(data);
         console.log(data);
-
-
+        setProductData(data);
+        localStorage.setItem("storedProductData",JSON.stringify(data))
+        // console.log(localStorage.setItem("storedProductData",JSON.stringify(data)));
+        } catch (error) {
+            console.log(error);
+            
+        }
+        
     }
     const handleAddToCart = (id:number) => {
-        dispatch(addToCart({id,quantity:1}))
-return (id)
+      dispatch(addToCart({id,quantity:1}));
+      
     };
     useEffect(() => {
         fetchProductsData();
@@ -39,7 +46,6 @@ return (id)
     return (
         <>
         <div className="grid  grid-cols-4 gap-4">
-
             {
                 productData.map((item: typeData , index) => {
                     return (
@@ -50,7 +56,7 @@ return (id)
                             <h3>{item.title}</h3>
                             <p className="line-clamp-3">{item.description}</p>
                             <h5>${item.price}</h5>
-                            <button onClick={() => handleAddToCart(item.id)} >Add to Cart</button>
+                            <Button onClick={() => handleAddToCart(item.id)} >Add to Cart</Button>
                            </div>
                     );
                 })

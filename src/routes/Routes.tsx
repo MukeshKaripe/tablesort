@@ -13,7 +13,6 @@ const AppRoutes = () => {
                         <Route path="data"  element={<CartData />}  />
                     </Route>
                 </Routes>
-
             </Router>
         </>
     );

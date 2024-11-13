@@ -1,16 +1,7 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 interface typeData {
-    category: string,
-    description: string,
-    id: number
-    image: string,
-    price: number,
-    rating?: {
-        count: number
-        rate: number
-    },
-    quantity?:number
-    title: string
+    id: number,
+    quantity:number,
 };
 interface cartItems{
     items:typeData[];
@@ -20,27 +11,29 @@ const initialState:cartItems = {
     items:[]
 }
 const ProductSlice = createSlice({
-    name: 'getData',
+    name: 'productData',
     initialState,
     reducers:{
 addToCart (state,action:PayloadAction<{id:number,quantity:number}>) {
     const {id,quantity} = action.payload;
-  const QuantityData = (state.items).findIndex( item => item.id === id);
-  if(QuantityData >= 0){
-    // state.items[QuantityData].quantity += quantity;
-  }
-  else{
-    state.items.push({
-        id, quantity,
-        category: "",
-        description: "",
-        image: "",
-        price: 0,
-        title: ""
-    });
-  }
+    const existingItemIndex = state.items.findIndex(item => item.id === id);
+
+    if (existingItemIndex >= 0) {
+        state.items[existingItemIndex].quantity += quantity;
+    } else {
+        state.items.push({ id, quantity
+         });
+    }
+},
+updateQuantity (state,action:PayloadAction<{id:number,quantity:number}>){
+    const {id,quantity} = action.payload;
+    const item = state.items.find(item => item.id === id);
+    if (item) {
+      item.quantity = quantity;
+    }
+
 }
     }
 }) 
-export const {addToCart} = ProductSlice.actions;
+export const {addToCart, updateQuantity} = ProductSlice.actions;
 export default ProductSlice; 

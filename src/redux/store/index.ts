@@ -7,7 +7,7 @@ import ProductSlice from "../../slices/ProductSlice";
 export const store = configureStore({
 reducer:{
     getData: getData.reducer,
-    product:ProductSlice.reducer,
+    productData:ProductSlice.reducer,
 }
 });
 

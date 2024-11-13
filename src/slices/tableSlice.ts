@@ -3,6 +3,7 @@ import axios from "axios";
 
 const BASE_URL = process.env.REACT_APP_BASE_URL
 interface ExampleState {
+    [x: string]: any;
     value: number;
   }
 const initialState:ExampleState = {
