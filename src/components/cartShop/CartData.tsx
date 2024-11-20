@@ -50,7 +50,7 @@ const CartData = () => {
     }, [updateditem])
 
     return (<>
-        {storeFIlterdata.length > 1 ?
+        {storeFIlterdata.length >= 1 ?
             <ul className="flex items-center flex-col mt-4">
                 {
                     storeFIlterdata.map((item: typeData, index: number) => {
